@@ -1,4 +1,4 @@
-# [Django : Blog_Cinema](http://kcr.pythonanywhere.com/)
+# [💻 Django : Blog_Cinema](http://kcr.pythonanywhere.com/)
 
 ## 1. MAIN PAGE
 ![main page](https://user-images.githubusercontent.com/87185180/198113478-4f6a2990-fa0b-4a8a-a245-73c2d98e3f48.png)
