@@ -32,6 +32,27 @@ class OwnerOnlyMixin(AccessMixin):
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
 
+import os
+import json
+from django.core.exceptions import ImproperlyConfigured
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_secret("SECRET_KEY")
+
+
+
 def movieAPI_TV(request):
     date = request.GET.get('date')
     if (date == '' or date is None):
@@ -40,7 +61,7 @@ def movieAPI_TV(request):
         date = date.replace('-', '')
 
     context = {}
-    key = '41658d1753eba1594a8bd7620e0eb08f'
+    key = get_secret("API_KEY")
     url = 'http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key={}&targetDt={}&itemPerPage=20'.format(key, date)
 
     response = requests.get(url)
