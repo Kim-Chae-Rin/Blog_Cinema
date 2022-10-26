@@ -49,10 +49,6 @@ def get_secret(setting, secrets=secrets):
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
 
-SECRET_KEY = get_secret("SECRET_KEY")
-
-
-
 def movieAPI_TV(request):
     date = request.GET.get('date')
     if (date == '' or date is None):
