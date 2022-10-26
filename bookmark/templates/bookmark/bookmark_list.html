@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Related Websites    
+{% endblock %}
+
+
+{% block extra-style %}
+<style>
+    .web_title {
+        font-size: 25px;
+        list-style-type:square;
+        color: black;
+    }
+    .web_title:hover {
+        text-shadow: 1px 1px 1px grey
+    }
+
+    .web_link {
+        list-style:none;
+        font-size: 20px;
+        padding-bottom: 10px;
+        color: gray;
+    }
+</style>   
+{% endblock %}
+
+{% block content %}
+<p style="font-size: 43px; font-weight: bold;padding-right:1em; " id="top">Related Websites</p>
+
+<div class="pl-3" style="float:left; width: 50%;">
+    <h2>Blog</h2>
+    {% for blog in blog_list %}
+        <ul>
+            <a href="{{ blog.url }}">
+                <li class="web_title">{{blog.title}}</li>
+                <li class="web_link">{{blog.url}}</li>
+            </a>
+        </ul>
+    {% endfor%}
+    <br>
+
+    <h2>Boxoffice</h2>
+    {% for boxoffice in boxoffice_list %}
+        <ul>
+            <a href="{{ boxoffice.url }}">
+                <li class="web_title">{{boxoffice.title}}</li>
+                <li class="web_link">{{boxoffice.url}}</li>
+            </a>
+        </ul>
+    {% endfor%}
+    <br>
+</div>
+<div style="position:static; float:right; width: 50%;">
+    <h2>Review</h2>
+    {% for review in review_list %}
+        <ul>
+            <a href="{{ review.url }}">
+                <li class="web_title">{{review.title}}</li>
+                <li class="web_link">{{review.url}}</li>
+            </a>
+        </ul>
+    {% endfor%}
+    <br>
+
+    <h2>Streaming</h2>
+    {% for stream in stream_list %}
+        <ul>
+            <a href="{{ stream.url }}">
+                <li class="web_title">{{stream.title}}</li>
+                <li class="web_link">{{stream.url}}</li>
+            </a>
+        </ul>
+    {% endfor%}
+
+</div>
+<br>
+{% endblock %}

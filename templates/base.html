@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        Django Web Programming
+        {% endblock %}
+    </title>
+    <!-- Bootstrap CSS only -->
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+</head>
+{% block extra-style %}
+{% endblock %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Poor+Story&family=Sunflower&display=swap');
+    </style>
+<style>
+    body {
+        width: 100%;
+        background-repeat: no-repeat;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+    }
+    .container{
+        margin-top: 30px;
+        padding-left: 0px;
+    }
+    .bg-primary {
+        background-color: black!important;
+    }
+    .btn-primary {
+        color: #fff;
+        background-color: black;
+        border-color: black;
+    }
+    .navbar-brand{
+        margin-left: 10px;
+        font-size: 30px;
+        font-family: 'Sunflower', sans-serif;
+    }
+    .nav-item {
+        font-size: 20px;
+        font-family: 'Sunflower', sans-serif;
+
+    }
+    .nav-item:hover {
+        background-color: rgb(81, 9, 9);
+        border:rgb(81, 9, 9) 1px solid;
+        border-radius: 10px;
+    }
+    .nav-item:active {
+        background-color: rgb(81, 9, 9);
+        border:rgb(81, 9, 9) 1px solid;
+        border-radius: 10px;
+    }
+    .shelf {
+        margin-bottom: 0px;
+    }
+
+    .update-li {
+        position: absolute; 
+        left: 159px; 
+        top: 0px;
+    }
+    .add-li {
+        position: absolute; 
+        left: 159px; 
+        top: 58px;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:hover{
+        text-decoration: none;
+    }
+</style>
+<body style="padding: top 90px;" id="body">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <span class="navbar-brand  mb-0 font-weight-bold"><a class="nav-link text-white" href="{% url 'home' %}">Blog : Cinema</a></span>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item mx-2 btn">
+                    <a class="nav-link text-white" href="{% url 'blog:index' %}">MOVIE NEWS</a>
+                </li>
+                <li class="nav-item mx-2 btn">
+                    <a class="nav-link text-white" href="{% url 'photo:index' %}">MOVIE INFO</a>
+                </li>  
+                <li class="nav-item mx-2 btn">
+                    <a class="nav-link text-white" href="{% url 'using_api' %}">BOXOFFICE</a>
+                </li>              
+                <li class="nav-item mx-2 btn">
+                    <a class="nav-link text-white" href="{% url 'bookmark:index' %}">WEB</a>
+                </li>
+
+<!-- Change -->
+                <li class="nav-item dropdown mx-2 btn">
+                    <a class="nav-link text-white change" href="#">CHANGE <i class="fa-solid fa-chevron-down"></i></a>
+                    <div class="dropdown-menu change-li" style="float:right;">
+                        <a class="nav-link update" href="#"  style="color: black;">Update</a>
+                        <div class="dropdown-menu update-li">
+                            <a class="dropdown-item" href="{% url 'blog:change' %}">MOVIE NEWS</a>
+                            <a class="dropdown-item" href="{% url 'photo:album_change' %}">MOVIE GENRES</a>
+                            <a class="dropdown-item" href="{% url 'photo:photo_change' %}">MOVIE INFO</a>
+                            <a class="dropdown-item" href="{% url 'bookmark:change' %}">WEB</a>
+                        </div>
+                        <div class="dropdown-divider"></div>                            
+
+                        <a class="nav-link add" href="#" style="color: black;">Add</a>
+                        <div class="dropdown-menu add-li">
+                            <a class="dropdown-item" href="{% url 'blog:add' %}">MOVIE NEWS</a>
+                            <a class="dropdown-item" href="{% url 'photo:album_add' %}">MOVIE GENRES</a>
+                            <div class="dropdown-divider"></div>                            
+                            <a class="dropdown-item" href="{% url 'photo:photo_add' %}">MOVIE INFO</a>
+                            <a class="dropdown-item" href="{% url 'bookmark:add' %}">WEB</a>
+                        </div>
+                        
+                    </div>
+                </li>
+            </ul>
+        
+            <!-- 회원(로그인/로그아웃/회원가입/비밀번호 변경) Start -->
+            <ul class="navbar-nav mx-5">
+                <li class="nav-item dropdown mx-2 btn btn-dark"  style="font-family: 'IBM Plex Sans KR', sans-serif;">
+                    {% if user.is_active %} <!-- 로그인된 상태라면 -->
+                    <a class="nav-link text-white" href="#" data-toggle="dropdown">
+                        <i class="fa-solid fa-user"></i>&ensp;&ensp;{% firstof user.get_short_name user.get_username %}&ensp;
+                        </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+
+                    </div>
+                    {% else %}
+                    <a class="nav-link text-white" href="#" data-toggle="dropdown">
+                        <i class="fa-regular fa-user"></i>&ensp;
+                        로그인 / 회원가입<i class="arrow down"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                        <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+                    </div>
+                    {% endif %}
+                </li>
+            </ul>
+            <!-- 회원(로그인/로그아웃/회원가입/비밀번호 변경) End -->
+        </div>
+    </nav>
+    <div class="container" style="min-width:90%; min-height: 85vh;">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% block footer %}
+    {% endblock %}
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/97f7d9edcc.js" crossorigin="anonymous"></script>
+<script>
+    $(function () {
+        $('.update').mouseenter(function() {
+            $('.update-li').addClass('d-block')
+            $('.add-li').removeClass('d-block')
+        })
+        $('.update-li').mouseleave(function() {
+            $('.update-li').removeClass('d-block')
+        })
+        $('.add').mouseenter(function() {
+            $('.add-li').addClass('d-block')
+            $('.update-li').removeClass('d-block')
+        })
+        $('.add-li').mouseleave(function() {
+            $('.add-li').removeClass('d-block')
+        })
+
+        $('.change').mouseenter(function() {
+            $('.change-li').addClass('d-block')
+        })
+
+        $('#navbarSupportedContent').mouseleave(function() {
+            $('.change-li').removeClass('d-block')
+            $('.change-li').addClass('d-none')
+        })
+        $('.change-li').mouseleave(function() {
+            $('.change-li').removeClass('d-none')
+        })
+        
+        $('.dropdown-item').mouseleave(function() {
+            $('.dropdown-item').removeClass('d-none')
+        })
+
+    });
+</script>
+
+{% block extra-script %}
+    
+{% endblock %}
+</html>

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Blog:Cinema - MOVIE NEWS_Achive
+{% endblock %}
+
+{% block extra-style%}
+<style>
+    .title{
+        color: black;
+    }
+    .archive a{
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
+{% endblock%}
+
+{% block content %}
+<div class="archive">
+
+<p style="font-size: 43px; font-weight: bold;padding-right:1em; ">MOVIE NEWS _ Archives</p>
+
+
+<ul>
+    {% for date in date_list %}
+        <li style="display: inline;">
+            <a href="{% url 'blog:post_year_archive' date|date:'Y' %}">
+                Year{{date|date:"-Y" }}
+            </a>
+        </li>
+    {% endfor %}
+    &ensp;
+    <a href="{% url 'blog:post_today_archive' %}">today</a>
+</ul>
+    
+    <br>
+
+    <table>    
+        {% for post in object_list %}
+        <tr>
+            <td class="pl-4">
+                <p style="font-size: 30px; padding-right: 40px;"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+            </td>
+            <td class="pl-3">{{ post.modify_dt|date:"Y-m-d" }}</td>
+        </tr>   
+    {% endfor %}
+    </table>
+</div>
+<a href="{% url 'blog:index' %}" style="float: right; " class="bg-info px-2 py-2 mx-4e text-white">아카이브 나가기</a>
+
+{% endblock %}
+

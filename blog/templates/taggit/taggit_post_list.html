@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Tag - {{tagname}}
+{% endblock %}
+
+{% block extra-style %}
+<style>
+    .tag a{
+        font-size: 30px;
+        font-weight: bold;
+    }
+</style>
+{% endblock%}
+
+{% block content %}
+<div class="tag">
+<br>
+<p style="font-size: 43px; font-weight: bold;padding-right:1em; ">Tags for {{tagname}}</p>
+
+    <table>    
+        {% for post in object_list %}
+        <tr>
+            <td class="pl-4">
+                <p style="font-size: 30px; padding-right: 40px;"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+                <p>{{ post.description }}</p>
+            </td>
+            <td class="pl-3">{{ post.modify_dt|date:"Y-m-d" }}</td>
+
+        </tr>   
+    {% endfor %}
+    </table>
+
+
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+My Blog Search Page
+{% endblock %}
+
+{% block extra-style %}
+
+{% endblock %}
+
+{% block content %}
+<h1>Blog Search</h1>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Search">
+</form>
+<br>
+{% if object_list %}
+    "{{ search_term }}"에 관한 검색 결과입니다.
+    <br><br>
+    {% for post in object_list %}
+        <h2><a href="{{ post.get_absolute_url }}">{{ post }}</a></h2>
+        {{ post.modify_dt|date:"N d, Y" }}
+        <p>{{ post.description }}</p>
+        <br>
+    {% endfor %}
+
+{% elif search_term %}
+    "{{ search_term }}"을 찾을 수 없습니다.
+{% else %}
+    검색을 해보세요.
+{% endif %}
+
+{% endblock%}
+
+{% block extra-script %}
+{% endblock %}

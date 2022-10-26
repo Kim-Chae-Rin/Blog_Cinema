@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- 제목 블록 -->
+{% block title %}
+MOVIE GENRE - {{ object.title }}
+{% endblock%}
+
+<!-- 스타일 블록 -->
+{% block extra-style %}
+<style>
+    #photo img{
+        width: 300px;
+        height: 100%;
+        box-shadow: 2px 2px 5px #000;
+        margin-bottom: 15px;
+    }
+    #photo {
+        float: left;
+        align-items: center;
+        padding: 30px;
+    }
+    #photo:hover {
+        opacity: 0.8;
+    }
+    figcaption{
+        color: black;
+        font-weight: bold;
+        text-align: center;
+        font-size: 27px;
+    }
+</style>
+{% endblock%}
+
+<!-- 콘텐츠 블록 -->
+{% block content %}
+<br>
+<div style="width: 90%;">
+    <h1 class="font-weight-bold">{{ object }}</h1>
+    <h3 style="font-style: italic;color:gray">{{ object.description }}</h3>
+    <span style="font-size: 25px;">{{ object.genre_description | linebreaks}}</span>
+
+</div><br>
+<hr class="dashed"><br>
+<h1 class="font-weight-bold" style="color: rgb(255, 208, 53); text-shadow: 1px 2px black;">MOVIE SHELF</h1>
+<div>
+    {% for photo in object.photo_set.all %}
+        <div class="d-flex" id="photo">
+            <a href="{{ photo.get_absolute_url }}" style="text-decoration: none;">
+                <img src="{{ photo.image.url }}" alt="{{ photo }}">
+                <figcaption>{{ photo.title}}</figcaption>
+            </a>
+        </div>                            
+    {% endfor %}
+
+</div>
+        
+{% endblock%}
+
+<!-- 바닥글 블록 -->
+{% block footer %}
+{% endblock %}
+
+<!-- 스크립트 블록 -->
+{% block extra-script %}
+{% endblock %}

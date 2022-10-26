@@ -1,0 +1,320 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Blog : Cinema
+{% endblock%}
+
+{% block extra-script%}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var banner_left = 0;
+        var img_cnt = 0;
+        var first=1;
+        var last;
+        var interval;
+
+$(document).ready(function() {
+	$(".rolling_wrap a").each(function() {
+		$(this).css("left", banner_left);
+		banner_left += $(this).width()+5;
+		$(this).attr("id", "content"+(++img_cnt));
+	});
+
+	last = img_cnt;
+	startAction();
+});
+
+function startAction() {
+	interval = setInterval(function() {
+		$(".rolling_wrap a").each(function() {
+			$(this).css("left", $(this).position().left-1);
+		});
+
+		var first_content = $("#content"+first);
+		var last_content = $("#content"+last);
+
+		if(first_content.position().left < "-"+$(first_content).width()) {
+			first_content.css("left", last_content.position().left+last_content.width()+5);
+			first++;
+			last++;
+			if(last > img_cnt) { last = 1;}
+			if(first > img_cnt) {first = 1;}
+		}
+	}, 15);
+}
+
+function stopAction() {
+	clearInterval(interval);
+}
+
+
+   </script>
+
+  {% endblock %}
+
+{% block extra-style %}
+<style>
+    .container{
+        margin-top: 10px!important;
+    }
+    .home-image {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        border-top: 10px solid #ccc;
+        border-bottom: 10px solid #ccc;
+        padding: 20px 20px 0 20px;
+    }
+    .title {
+        color: #c80;
+        font-weight: bold;
+    }
+
+    .shelf li{
+        float : left;
+        list-style:none;
+        margin-bottom: 20px;
+    }
+    .shelf {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 0px;
+    }
+    .shelf img{
+        width: 250px;
+        height: 100%;
+        float: left;
+        box-shadow: 2px 2px 5px #000;
+        margin-right: 25px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .shelf figcaption{
+        width: 250px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; 
+        -webkit-box-orient: vertical; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        font-size: 23px;
+        text-align: center;
+        padding-top:5px;
+        font-weight: bold;
+        color: black;
+        
+    }
+    
+    .shelf a:hover img{
+        box-shadow: 0px 0px 14px rgb(105, 2, 0)
+    }
+
+    .home-image{
+        background-color: rgba(217, 214, 214, 0.303);
+        height: 100%;
+        margin-bottom: 30px;
+    }
+    .logo {
+        padding: 5px;
+        margin-top: 25px;
+    }
+    .logo a{
+        padding: 15px;
+        border-radius: 25px;
+        border: 1px solid rgb(199, 199, 199);
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .logo a:hover {
+        box-shadow: 0px 0px 5px rgb(181, 181, 181);
+
+    }
+    .logo img{
+        width: 150px;
+        height: 100%;
+        margin-bottom: 3px;
+    }
+
+    .logo1 {
+        display: flex;
+        justify-content: space-around;
+        padding-top: 20px;
+    }
+
+    .logo1 img{
+        width: 120px;
+    }
+    .logo1 a{
+        text-align: center;
+        vertical-align: middle;
+    }
+    .logo1 img:hover{
+        width: 122px;
+    }
+    .book {
+        border : 1px ;
+        box-shadow: 0px 0px 5px grey; 
+        padding-top: 25px; 
+        padding-bottom: 30px; 
+        padding-left: 0px; 
+        padding-right: 0px; 
+        margin-bottom: 30px;
+    }
+    h3 {
+        font-weight: bold;
+    }
+    .ad {
+        width: 100%;
+    }
+    
+    /* 배너광고 css */
+    .carousel-control-next, .carousel-control-prev {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    background: 0 0;
+    border: 0;
+    opacity: .5;
+    transition: opacity .15s ease;
+}
+    .carousel-indicators [data-bs-target] {
+    box-sizing: content-box;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 3px;
+    padding: 0;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    opacity: .5;
+    transition: opacity .6s ease;
+}
+button:focus-visible, button:focus {
+    outline: none;
+}
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e")
+}
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+.carousel-indicators .active {
+    opacity: 1;
+}
+
+/* 이미지 스크롤 css */
+
+.rolling_wrap {
+	position: relative;
+	width: 100%;
+	height:430px;
+	margin: auto;
+	overflow: hidden;
+}
+
+.rolling_wrap a {
+	position: absolute;
+    width: 280px;
+}
+
+.buttons_wrap {
+    text-align: center;
+}
+</style>
+{% endblock%}
+
+{% block content %}
+<!-- 배너광고 -->
+
+<!-- Carousel -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+  </div>
+  
+  <!-- The slideshow/carousel -->
+  
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+        <a href="https://www.dunemovie.net/"><img src="../static/logo_img/dune.jpg" alt="dune_banner" class="ad"></a>
+    </div>
+    <div class="carousel-item">
+        <a href="https://www.marvel.com/movies/black-widow"><img src="../static/logo_img/black-widow1.jpg" alt="black-widow_banner" class="ad"></a>
+    </div>
+  </div>
+  
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+<!-- 배너광고 끝 -->
+
+
+<div class="home-image" >
+    <h2 class="title">LATEST</h2>
+    <ul class="shelf" style="width: 100%;">     
+        <div class="rolling_wrap">
+            {% for photo in object_list %}
+            <a href="{{ photo.get_absolute_url }}" style="text-decoration: none;" class="content">
+                <li>
+                    <img src="{{ photo.image.url }}" alt="{{ photo }}">
+                    <figcaption>{{ photo.title }}</figcaption>
+                </li>
+            </a>                        
+        {% endfor %}  
+        </div>
+
+    </ul>
+        <div class="buttons_wrap">
+            <a href="javascript:void(0);" onclick="stopAction()" class="button mr-2 mb-4"><i class="fa-solid fa-pause text-dark"></i></a>
+            <a href="javascript:void(0);" onclick="startAction()" class="button  mb-4"><i class="fa-solid fa-play text-dark"></i></a>
+        </div>
+</div>
+
+    
+<div class="row text-center" >
+    <div class="col-sm-6 book" >
+        <h3>예매 사이트</h3>
+        <div class="logo">
+            <a href="https://www.cgv.co.kr/"><img src="../static/logo_img/cgv.png" alt="CGV"></a>
+            <a href="https://www.lottecinema.co.kr/NLCHS/"><img src="../static/logo_img/lotte.png" alt="롯데시네마"></a>
+            <a href="https://www.megabox.co.kr/"><img src="../static/logo_img/mega.png" alt="메가박스"></a>
+        </div>
+    </div>
+    <div class="col-sm-6 book">
+        <h3>박스오피스 링크</h3>
+        <div class="logo1">
+            <a href="https://www.imdb.com/?ref_=nv_home"><img src="../static/logo_img/IMDB.png" alt="IMDB"></a>
+            <a href="https://www.netflix.com/kr/"><img src="../static/logo_img/Netflix.png" alt="Netflix"></a>
+            <a href="https://www.boxofficemojo.com/"><img src="../static/logo_img/Box_Office_Mojo.jpg" alt="Mojo"></a>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+
+{% block footer %}
+{% endblock %}

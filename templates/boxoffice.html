@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+<!-- 제목 블록 -->
+{% block title %}
+Blog:Cinema - BoxOffice
+{% endblock%}
+
+<!-- 스타일 블록 -->
+{% block extra-style %}
+<link rel="stylesheet" href="https://germanfrelo.github.io/base-css-stylesheet/base.css">
+{% endblock%}
+
+<!-- 스크립트 블록 -->
+{% block extra-script %}
+<style>
+  body {
+    font-size: 20px;
+  }
+  table {
+    border: 1px solid rgba(71, 71, 71, 0.48);
+  }
+
+  th, td {
+    height: 60px;
+  }
+
+  form .btn{
+    border: 1px grey dotted;
+  }
+  form input:hover{
+    box-shadow: 0px 0px 0px 1px rgb(93, 94, 94);
+  }
+  form .date {
+    padding: 4px;
+  }
+
+</style>
+{% endblock %}
+
+<!-- 콘텐츠 블록 -->
+{% block content %}
+<p style="font-size: 43px; font-weight: bold;padding-right:1em; " id="top">BOX OFFICE</p>
+<form action="." method="get">
+  <span style="font-size: 34px;">{{ boxOfficeResult.boxofficeType }} - {{ boxOfficeResult.showRange|slice:":4"}}년 {{ boxOfficeResult.showRange|slice:"4:6"}}월 {{ boxOfficeResult.showRange|slice:"6:8"}}일</span>
+  <span style="float: right;">
+    <input name="date" type="date" class="date mb-3"/>
+    <input type="submit" value="조회" class="btn" style="font-size: 20px;">  
+  </span>
+
+  <br>
+  <table>
+    <thead>
+      <tr class="bg-light font-weight-bold">
+        <th scope="col">순위</th>
+        <th scope="col">영화명</th>
+        <th scope="col">개봉일</th>
+        <th scope="col">누적관객수</th>
+      </tr>					
+    </thead>
+    <tbody>
+      {% for movie in boxOfficeResult.dailyBoxOfficeList %}
+      <tr>
+        <td>{{ movie.rank }}</td>
+        <td>{{ movie.openDt }}</td>
+        <td>{{ movie.movieNm }}</td>
+        <td>{{ movie.audiAcc|add:0|intcomma }}</td>
+      {% endfor %}  
+      </tr>
+    </tbody>
+  </table>
+</form>
+<br>
+{% endblock%} 
+
+<!-- 바닥글 블록 -->
+{% block footer %}
+{% endblock %}
+

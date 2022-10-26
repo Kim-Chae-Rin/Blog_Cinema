@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Blog:Cinema - MOVIE NEWS
+{% endblock %}
+
+{% block extra-style %}
+<style>
+    .btn-outline-success {
+        color: black;
+        border-color: rgba(0, 0, 0, 0.599);
+    }
+    .btn-outline-success:hover {
+    color: #fff;
+    background-color: rgba(116, 116, 116, 0.451);
+    border: rgba(69, 69, 69, 0.659) 1px solid;
+    }
+    .search {
+        border: 1px solid black;
+    }
+
+    #achive {
+        float: right ;
+        left: 100px;
+    }
+    #check-btn { display: none; }
+    #check-btn:checked ~ #tag_cloud { display: block; } 
+    #tag_cloud { display: none; }
+    
+    a{
+        color: black;
+    }
+    img {
+        width: 200px;
+        height: auto;
+    }
+    table, th, td {
+        border: 14px solid transparent;
+    }
+    .title:hover{
+        color: black;
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+
+{% endblock%}
+
+{% block content %}
+<a href="{% url 'blog:index' %}" class="title"><p style="font-size: 43px; font-weight: bold;padding-right:1em; ">MOVIE NEWS</p></a>
+<form class="form-inline my-2" action="" method="post" style="display: inline-block; position:absolute; right: 200px; top: 130px;"> {% csrf_token %}
+    <input style="width:15em; height: 3em;" class="form-control mr-sm-1" type="text" placeholder="검색어를 입력하세요" name="search_word" 
+    required oninvalid="this.setCustomValidity('검색어를 입력하세요')" 
+    oninvalid="this.setCustomValidity('custom text on invalid')" 
+    onchange="this.setCustomValidity('')" 
+    required/>
+    <button class="btn btn-outline-success" type="submit" style="width:5em; height: 3em;">Search</button>
+</form>
+
+<input id="check-btn" type="checkbox" />
+<label for="check-btn" class="btn btn-info btn-sm py-3" style="position:absolute; right: 100px; top: 135px;">TagCloud</label>
+
+<div id="tag_cloud"  style="width: 400px; border: 1px solid black; position:absolute; top:190px; right: 20px; padding:10px;" class=" bg-light">
+    {% load taggit_templatetags2_tags %}
+    {% get_tagcloud as tags %}
+    {% for tag in tags %}
+    <span class="tag-{{tag.weight|floatformat:0}}">
+        <a href="{% url 'blog:tagged_object_list' tag.name %}" class="mx-1">{{tag.name}}({{tag.num_times}})   /</a>
+    </span>
+    {% endfor %}
+</div>
+
+{% if object_list %}
+
+    <h5 class="result">"{{ search_term }}"에 관한 검색 결과입니다.</h5>
+
+    <table>    
+        {% for post in object_list %}
+        <tr>
+            <td>
+                <a href="{{ post.get_absolute_url }}"><img src="{{ post.image }}" alt="{{ post.title }}썸네일" ></a>
+            </td>
+            <td class="pl-4">
+                <p style="font-size: 30px; padding-right: 10px;"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+                <span style="padding-left: 5px;">{{ post.description }}</span>
+            </td>
+            <td class="pl-3">{{ post.modify_dt|date:"Y-m-d" }}</td>
+        </tr>   
+    {% endfor %}
+    </table>
+
+        <br>
+
+{% else %}
+    <h5 class="result">"{{ search_term }}"을 찾을 수 없습니다.</h5>
+
+{% endif %}
+<br>
+    <p>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="font-weight-bold">이전</a>&emsp;   
+        {% endif %}
+
+        Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+            &emsp;<a href="?page={{ page_obj.next_page_number }}" class="font-weight-bold">다음</a>
+        {% endif %}
+        <a href="{% url 'blog:post_archive' %}" style="float: right; " class="bg-info px-2 py-2 mx-4e text-white">아카이브로 보기</a>
+    </p>
+    <br>
+{% endblock %}
+
+    

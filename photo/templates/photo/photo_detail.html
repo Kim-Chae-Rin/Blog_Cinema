@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- 제목 블록 -->
+{% block title %}
+MOVIE INFO - {{ object.title }}
+{% endblock%}
+
+<!-- 스타일 블록 -->
+{% block extra-style %}
+<style>
+    table{
+        font-size: 20px;
+        height: 120px;
+    }
+    tr td:first-child{
+        color: gray;
+    }
+</style>
+
+{% endblock%}
+
+<!-- 콘텐츠 블록 -->
+{% block content %}    
+<br>
+<div style="float: left; width: 45%; padding-left: 70px; border-right: 2px rgba(128, 128, 128, 0.399) solid; ">
+    <img src="{{ object.image.url }}" alt="{{ photo }}">
+</div>
+<div style="position:static; float: right; width: 50%; padding-right: 30px;">
+    <h1>{{ object.title }}</h1><br>
+    <table style="width: 200px;">
+        <tr>
+            <td>장르</td>
+            <td>{{ object.album }}</td>
+        </tr>
+        <tr>
+            <td>제작 연도</td>
+            <td>{{ object.year }}</td>
+        </tr>
+        <tr>
+            <td>내용</td>
+        </tr>
+    </table>
+
+<span style="font-size: 20px;">{{ object.description |linebreaks}}</span>
+
+
+
+</div>
+
+
+
+
+
+
+{% endblock%}
+
+<!-- 바닥글 블록 -->
+{% block footer %}
+{% endblock %}
+
+<!-- 스크립트 블록 -->
+{% block extra-script %}
+{% endblock %}

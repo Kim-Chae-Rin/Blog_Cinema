@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- 제목 블록 -->
+{% block title %}
+Blog:Cinema - MOVIE GENRE
+{% endblock%}
+
+<!-- 스타일 블록 -->
+{% block extra-style %}
+<style type="text/css">
+    #photo{
+        background-color: #cbd1cf;
+        margin-bottom: 20px;
+    }
+    #photo_desc a:hover {
+        opacity: 50%;
+        background-color: rgb(109, 109, 109);
+    }
+    img {
+        height: 270px;
+        width: auto;
+        border: 10px solid #cbd1cf;
+    }
+    #photo_desc a {
+        color: rgb(32, 32, 32)
+    }
+    #photo_desc span{
+        display: -webkit-box; 
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;  		
+        text-overflow: ellipsis;   
+    }
+    .move {
+        text-align: center;
+        line-height: 2.5em;
+        padding: 13px;
+        background-color: rgba(243, 243, 243, 0.789);
+        border-radius: 20px;
+        border: solid 2px grey;
+    }
+    .move a {
+        color: rgb(24, 24, 24);
+    }
+    .move a:hover {
+        font-weight: bold;
+    }
+</style>
+    
+{% endblock%}
+
+<!-- 콘텐츠 블록 -->
+{% block content %}
+<p style="font-size: 43px; font-weight: bold;padding-right:1em; " id="top">MOVIE INFO</p>
+    {% for object in object_list %}
+    <span id="{{ forloop.counter }}"></span><br>
+    <a href="{{ object.get_absolute_url }}"><h1 class="font-weight-bold">{{ object }}</h1></a>
+        <h4 style="font-style: italic;color:gray">{{ object.description }}</h4> <br>
+        <div class="ml-3" id="album">
+            {% for photo in object.photo_set.all %}
+            <div class="d-flex" id="photo">
+                <img src="{{ photo.image.url }}" alt="{{ photo }}">
+                <div style="padding: 10px;" id="photo_desc">
+                    <a href="{{ photo.get_absolute_url }}" style="text-decoration: none;">
+                        <h3 class="font-weight-bold pt-3">{{ photo.title}}</h3>
+                        <h5>개봉 : {{ photo.year}}</h5><br>
+                        <span style="font-size: 17px;">{{ photo.description}}</span>
+                    </a>
+                </div>
+            </div>                            
+            {% endfor %}
+        </div>
+        <hr>
+    {% endfor %}
+    <div style="position: fixed; bottom: 40px; right: 40px; " class="move">
+        <a href="#body"><i class="fa-solid fa-chevron-up"></i></a><br>
+        {% for object in object_list %}
+            <a href="#{{ forloop.counter}}" style="font-size: 20px;">{{ object }}</a><br>
+        {% endfor %}
+        <a href="#footer"><i class="fa-solid fa-chevron-down"></i></a>
+    </div>
+
+{% endblock%}
+
+
+<!-- 바닥글 블록 -->
+{% block footer %}
+<footer id="footer"></footer>
+{% endblock %}
+
+<!-- 스크립트 블록 -->
+{% block extra-script %}
+{% endblock %}
