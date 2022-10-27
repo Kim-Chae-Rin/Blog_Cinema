@@ -28,7 +28,7 @@
   ![website](https://user-images.githubusercontent.com/87185180/198114027-bb7d0a99-22ce-4ebe-a379-e46b3ce32047.png)
 
 ## 3. LOG IN
-![login](https://user-images.githubusercontent.com/87185180/198114172-b8cb3361-12a9-41c1-a0dd-4c9ee5b403b7.png)
+![log in_super](https://user-images.githubusercontent.com/87185180/198175461-641134b6-2f96-4075-9ed1-4c67526ccf60.png)  
 
 ## 4. CHANGE
 #### 'CHANGE' is activated only when you are logged in.
