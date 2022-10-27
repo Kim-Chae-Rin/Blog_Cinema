@@ -1,15 +1,18 @@
 # [💻 Django : Blog_Cinema](http://kcr.pythonanywhere.com/)
 
 ## 1. MAIN PAGE
-![main page](https://user-images.githubusercontent.com/87185180/198113478-4f6a2990-fa0b-4a8a-a245-73c2d98e3f48.png)
+![main page](https://user-images.githubusercontent.com/87185180/198113478-4f6a2990-fa0b-4a8a-a245-73c2d98e3f48.png)  
+
 
 ## 2. NAVIGATION BAR
 ![navigation bar](https://user-images.githubusercontent.com/87185180/198113502-ea52495a-9bd7-4930-a33f-abb04b58c38c.png)
 
   ### 1) MOVIE NEWS
-    ❗ ERROR  
-     Invalid block tag : 'get_tagcloud', expected 'endblock'. Did you forget to register or load this tag?  
-     > local에서는 정상 작동하나 pythonanywhere에서 에러 발생
+```
+❗ ERROR   
+     ̶I̶n̶v̶a̶l̶i̶d̶ ̶b̶l̶o̶c̶k̶ ̶t̶a̶g̶ ̶:̶ ̶'̶g̶e̶t̶_̶t̶a̶g̶c̶l̶o̶u̶d̶'̶,̶ ̶e̶x̶p̶e̶c̶t̶e̶d̶ ̶'̶e̶n̶d̶b̶l̶o̶c̶k̶'̶.̶ ̶D̶i̶d̶ ̶y̶o̶u̶ ̶f̶o̶r̶g̶e̶t̶ ̶t̶o̶ ̶r̶e̶g̶i̶s̶t̶e̶r̶ ̶o̶r̶ ̶l̶o̶a̶d̶ ̶t̶h̶i̶s̶ ̶t̶a̶g̶?̶ ̶ 
+     ̶>̶ ̶I̶t̶ ̶i̶s̶ ̶w̶o̶r̶k̶i̶n̶g̶ ̶l̶o̶c̶a̶l̶l̶y̶ ̶b̶u̶t̶ ̶n̶o̶t̶ ̶i̶n̶ ̶P̶y̶t̶h̶o̶n̶a̶n̶y̶w̶h̶e̶r̶e̶
+```
 ![movie news with tags](https://user-images.githubusercontent.com/87185180/198117550-6fe13c8d-a122-4d49-aa0f-7a511130a8f1.png)
 
  
