@@ -28,6 +28,10 @@
   ![website](https://user-images.githubusercontent.com/87185180/198114027-bb7d0a99-22ce-4ebe-a379-e46b3ce32047.png)
 
 ## 3. LOG IN
+<!-- 
+id : super
+pw : qweqwe123
+-->
 ![log in_super](https://user-images.githubusercontent.com/87185180/198175461-641134b6-2f96-4075-9ed1-4c67526ccf60.png)  
 
 ## 4. CHANGE
